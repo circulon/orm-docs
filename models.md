@@ -76,15 +76,20 @@ class Clients:
 
 ### Default columns used to hydrate a model from a SELECT query
 
-By default Masonite assumes that *ALL* columns returned from Models QueryBuilder result are used to hydrate the model as the default criteria is `SELECT *`.
+By default Masonite ORM assumes that *ALL* columns returned from Models QueryBuilder result are to be used to hydrate the model itself.
+The default criteria for column selection is`SELECT *`.
+
 This can cause the Model to be hydrated with incorrect data when multiple columns with the 
-sane name (eg 'id') are returned from a complex query. In this case the last column with the name will be used which may not be related to the model at all. 
+sane name (eg 'id') are returned from a complex query. In this case the last column with the name that matches the one in the Model will be used, which may not be related to the model at all. 
+
 This is hilighted especially when using `JOIN` clauses as selection criteria to populate a model.
 
 The simple way to address this is to override the `get_selects` method in your `Model` or `BaseModel` classes
 to return only the required columns for the Model itself.
+
 Like so:
 ```python
+class BaseModel(Model):
     def get_selects(self):
         return [f"{self.get_table_name()}.*"]
 ```
