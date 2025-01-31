@@ -36,7 +36,7 @@ We'll talk more about setting up your model below
 
 ## Design Considerations
 
-When creating your models it is recommended to use a `BaseModel` that extends the root `Model` class. 
+When creating your models you may find it useful to use a `BaseModel` that extends the root `Model` class.
 This will provide an easy way to add global functionality and a basic standard configuration to all your models.
 
 example:
